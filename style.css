@@ -39,7 +39,7 @@ body {
     left: 0px;
     top: 12%;
     text-align: right;
-    font-size: 3.5vw;
+    font-size: 40px;
 }
 
 #name-container-subtext {
@@ -94,4 +94,26 @@ p {
 #text-container span {
 	display: table-cell;
 	vertical-align: middle;
+}
+
+@media only screen and (max-width: 700px) {
+	#pic-container, #name-container {
+		width: 40%;
+		font-size: 35px;
+	}
+
+	#text-container {
+		width: 60%;
+	}
+}
+
+@media only screen and (max-width: 600px) {
+	#pic-container, #name-container {
+		width: 30%;
+		font-size: 20px;
+	}
+
+	#text-container {
+		width: 70%;
+	}
 }

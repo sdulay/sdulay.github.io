@@ -30,5 +30,56 @@
 			</p>
 		</span></div>
 	</div>
+	<canvas id="paint-container"></canvas>
+
+<script type="text/javascript">
+	var canvas = document.getElementById("paint-container"), 
+	ctx = canvas.getContext("2d"),
+	PATH = [],
+	HUE = 0,
+	STYLE = 0;
+
+	function draw() {
+		canvas.height = canvas.offsetHeight;
+		canvas.width = canvas.offsetWidth;
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		for(var i = 0; i < PATH.length-1; i++) {
+			var color = "hsla("+PATH[i].hue+",100%, 50%, 0.95)";
+			ctx.beginPath();
+			ctx.strokeStyle = color;
+			ctx.fillStyle = color;
+			if(STYLE == 0) {
+				ctx.moveTo(PATH[i].x, PATH[i].y);
+				ctx.lineTo(PATH[i+1].x, PATH[i+1].y);
+				ctx.lineWidth = 2;
+				ctx.closePath();
+				ctx.stroke();
+			} else {
+				var delta = Math.sqrt(Math.pow(PATH[i].x-PATH[i+1].x,2) + Math.pow(PATH[i].y-PATH[i+1].y,2));
+				ctx.arc(PATH[i].x, PATH[i].y, parseInt(delta), 0, 2*Math.PI);
+				ctx.fill();
+			}
+		}
+	}
+
+	window.onload = function() {
+		canvas.addEventListener("mousemove", function(e) {
+			PATH.push({
+				"x": e.layerX,
+				"y": e.layerY,
+				"hue": HUE
+			});
+			HUE = (HUE+1)%359;
+			draw();
+		}, false);
+		canvas.addEventListener("click", function(e) {
+			STYLE = (STYLE+1)%2;
+		})
+	}
+
+	window.onresize = function(e) {
+		draw();
+	}
+</script>
 </body>
 </html>

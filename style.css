@@ -117,3 +117,9 @@ p {
 		width: 70%;
 	}
 }
+
+@media only screen and (max-width: 500px) {
+	#pic-container, #name-container {
+		font-size: 15px;
+	}
+}
